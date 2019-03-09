@@ -1,0 +1,25 @@
+header {
+  background-color: lightblue;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  margin: 10px;
+}
+
+.menu-item {
+  padding: 10px 20px;
+}
+
+.link {
+  text-decoration: none;
+  font-size: bold;
+  color: black;
+}
+
+.link:hover, .active-link {
+  color: red;
+}

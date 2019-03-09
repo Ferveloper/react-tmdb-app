@@ -1,0 +1,17 @@
+.text-input, .button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.4rem;
+}
+
+.text-input {
+  width: 400px;
+  margin-left: 30px;
+}
+
+.button {
+  background-color: lightskyblue
+}
+
+

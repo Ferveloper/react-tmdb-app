@@ -1,0 +1,40 @@
+.container {
+  padding: 0;
+  margin: 20px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr)
+}
+
+.movie {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+img {
+  object-fit: contain;
+  object-position: center;
+  height: 300px;
+}
+
+.title {
+  font-family: 'Oswald', sans-serif;
+  display: grid;
+  text-align: center;
+  width: auto;
+  height: 70px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.no-results {
+  grid-column: 1 / col-end;
+  text-align: center;
+  padding: 50px;
+  font-size: 2.5rem
+}
