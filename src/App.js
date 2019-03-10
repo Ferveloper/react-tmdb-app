@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import Discover from './Discover';
-import Search from './Search'
+import Search from './Search';
+import Movie from './Movie';
 
 sessionStorage.setItem('results', [])
 
@@ -20,6 +21,7 @@ class App extends Component {
           <Route exact path="/" component={Discover}/>
           <Route exact path="/search" component={Search}/>
           <Route exact path="/collections" component={Collections}/>
+          <Route path='/movie/:id' component={Movie} />
           </Switch>
         </div>
       </BrowserRouter>

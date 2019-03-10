@@ -6,6 +6,11 @@
   grid-template-columns: repeat(5, 1fr)
 }
 
+.link {
+  text-decoration: none;
+  color: black;
+}
+
 .movie {
   display: flex;
   flex-direction: column;
@@ -14,7 +19,7 @@
   overflow: hidden;
 }
 
-img {
+.img-showcase {
   object-fit: contain;
   object-position: center;
   height: 300px;
