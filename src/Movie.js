@@ -1,4 +1,5 @@
 import React from 'react';
+import './Movie.css';
 import defaultImg from './default.jpg'
 
 class Movie extends React.Component {
@@ -16,13 +17,15 @@ class Movie extends React.Component {
     const movie = this.state.movie;
     return (
       <div className='movie-details'>
-        <h1 className='movie.title'>{movie.title}</h1>
+        <h1 className='movie-title'>{movie.title}</h1>
         <div className='img-container'>
-          <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImg} alt={movie.title}/>
+          <img className='img-details' src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImg} alt={movie.title}/>
         </div>
-        <article>
-          {movie.overview}
-        </article>
+        
+        <div className='overview'>
+        <h2 className='overview-title'>Sinopsis:</h2>
+          <article>{movie.overview}</article>
+        </div>
       </div>
     )
   }

@@ -6,11 +6,14 @@ import Discover from './Discover';
 import Search from './Search';
 import Movie from './Movie';
 
-sessionStorage.setItem('results', [])
+sessionStorage.setItem('query', '')
+sessionStorage.setItem('results', JSON.stringify([]))
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = '687ccf3a676569dd642e0706e30a6dae';
 class App extends Component {
+
+  // state = { discoverPage : 1, searchPage : 1 }
   
   render() {
     return (
