@@ -7,25 +7,35 @@ class Discover extends React.Component {
   state = { results : [], page : 1 }
 
   async componentDidMount() {
+    console.log('Discover componentDidMount triggered!')
     const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&page=${this.state.page}`);
     const { results } = await response.json();
     this.setState({ results : results})
   }
 
-  async componentDidUpdate() {
-    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&page=${this.state.page}`);
-    const { results } = await response.json();
-    this.setState({ results : results})
-  }
+  // async componentDidUpdate() {
+  //   console.log('Discover componentDidUpdate triggered!')
+  //   const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&page=${this.state.page}`);
+  //   const { results } = await response.json();
+  //   this.setState({ results : results})
+  // }
 
   render() {
     const results = this.state.results;
     return (
       <>
-      <Pagination page={this.state.page} pageBack={() => this.setState({page : this.state.page - 1})} pageForward={() => this.setState({page : this.state.page + 1})} />
+      <Pagination page={this.state.page} onChangePage={this.handleChangePage} />
       <Showcase results={results} />
       </>
     )
+  }
+
+  handleChangePage = async (e) => {
+    console.log('Discover handlePageChange triggered!')
+    const newPage = this.state.page + parseInt(e.target.value)
+    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&page=${newPage}`);
+    const { results } = await response.json();
+    this.setState({ results: results, page : newPage })
   }
 }
 
