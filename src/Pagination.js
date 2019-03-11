@@ -14,3 +14,5 @@ function Pagination(props) {
 }
 
 export default Pagination;
+
+// TODO: Enhance style when Previous button is not rendered

@@ -6,8 +6,11 @@ import Discover from './Discover';
 import Search from './Search';
 import Movie from './Movie';
 
-sessionStorage.setItem('query', '')
-sessionStorage.setItem('results', JSON.stringify([]))
+sessionStorage.setItem('discoverResults', JSON.stringify([]));
+sessionStorage.setItem('discoverPage', 1);
+sessionStorage.setItem('searchQuery', '');
+sessionStorage.setItem('searchResults', JSON.stringify([]));
+sessionStorage.setItem('searchPage', 1);
 
 // const BASE_URL = 'https://api.themoviedb.org/3';
 // const API_KEY = '687ccf3a676569dd642e0706e30a6dae';
