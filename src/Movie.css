@@ -20,6 +20,14 @@
 
 .overview {
   font-size: 1.5em;
-  padding: 50px 100px;
+  padding: 20px 100px 50px 100px;
   text-align: justify;
+}
+
+.add-collection-btn {
+  background-color: lightskyblue;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 1.4rem;
 }

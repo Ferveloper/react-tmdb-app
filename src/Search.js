@@ -12,29 +12,33 @@ class Search extends React.Component {
   }
 
   handleChange = (e) => {
+    console.log('Search handleChange triggered!')
     sessionStorage.setItem('searchQuery', e.target.value);
     this.setState({query: e.target.value});
   }
 
   handleSubmit = async (e) => {
+    console.log('Search handleSubmit triggered!')
     e.preventDefault();
     if (this.state.query === '') return;
     const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&query=${this.state.query}&page=1`);
     const { results } = await response.json();
     sessionStorage.setItem('searchResults', JSON.stringify(results));
     sessionStorage.setItem('searchPage', 1);
-    this.setState(() => ({ results : results, page : 1}))
+    this.setState({ results : results, page : 1})
   }
 
-  async didComponentUpdate() {
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&query=${this.state.query}&page=${this.state.page}`);
-    const { results } = await response.json();
-    sessionStorage.setItem('results', JSON.stringify(results));
-    this.setState(() => ({ results : results}))
-  }
+  // async didComponentUpdate() {
+  //   console.log('Search didComponentUpdate triggered!')
+  //   const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&query=${this.state.query}&page=${this.state.page}`);
+  //   const { results } = await response.json();
+  //   sessionStorage.setItem('results', JSON.stringify(results));
+  //   this.setState({ results : results})
+  // }
 
   render() {
-    console.log(JSON.parse(sessionStorage.getItem('searchResults')))
+    console.log('Search render triggered')
+    // console.log(JSON.parse(sessionStorage.getItem('searchResults')))
     const results = this.state.results;
     return (
       <>
