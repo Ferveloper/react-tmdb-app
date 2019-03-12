@@ -4,7 +4,14 @@ import defaultImg from './default.jpg'
 
 class Movie extends React.Component {
 
-  state = { movie : {}}
+  state = { 
+            movie : {},
+            toggle : false,
+            newCollection : '',
+            existingCollection : JSON.parse(localStorage.getItem('collections'))[0].collection_name ? JSON.parse(localStorage.getItem('collections'))[0].collection_name : '',
+            selectedOption : 'new',
+            selectedCollection : ''
+          }
 
   async componentDidMount() {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES`);
@@ -20,7 +27,26 @@ class Movie extends React.Component {
         <div className='img-container'>
           <img className='img-details' src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImg} alt={movie.title}/>
         </div>
-        <button type='submit' className='add-collection-btn' onClick={this.addMovie}>Añadir a mi colección</button>
+
+        { !this.state.toggle 
+        ? <button type='submit' className='add-favorites-btn' onClick={this.handleToggle}>Añadir a mis favoritos</button>
+
+        : <div>
+        <form className='form-favorites' onSubmit={this.addMovie}>
+          <input id='new' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
+          <input type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
+          
+          <input id='existing' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} /><label htmlFor='existing'> Añadir a colección existente: </label>
+            { JSON.parse(localStorage.getItem('collections')) 
+              ? <select onChange={this.handleSelectChange}>{JSON.parse(localStorage.getItem('collections')).map(collection => <option value={collection.collection_name}>{collection.collection_name}</option>)}</select>
+              : null
+            }
+          <br></br>
+          <button type='submit'>Añadir</button>
+        </form>
+        <button onClick={this.handleToggle}>Cancelar</button>
+        </div>}
+
         <div className='overview'>
         <h2 className='overview-title'>Sinopsis:</h2>
           <article>{movie.overview}</article>
@@ -29,20 +55,39 @@ class Movie extends React.Component {
     )
   }
 
-  addMovie = () => {
+  handleToggle = () => {
+    this.setState({ toggle : !this.state.toggle })
+  }
+
+  handleInputChange = (e) => {
+    console.log(e.target.value)
+    this.setState({ newCollection : e.target.value, selectedCollection : this.state.selectedOption === 'new' ? e.target.value : this.state.selectedCollection })
+  }
+
+  handleSelectChange = (e) => {
+    console.log(e.target.value)
+    this.setState({ existingCollection : e.target.value, selectedCollection : this.state.selectedOption === 'existing' ? e.target.value : this.state.selectedCollection })
+  }
+
+  handleOptionChange = (e) => {
+    this.setState({ selectedOption: e.target.id, selectedCollection : e.target.value })
+  }
+// TODO: Finish addMovie method to include movies to collections
+  addMovie = (e) => {
+    e.preventDefault();
     console.log('addMovie triggered!')
     console.log(this.state.movie)
-    const collection = JSON.parse(localStorage.getItem('collection'));
-    console.log(collection)
-    if (!collection.find(movie => movie.id === this.state.movie.id)) {
-      collection.push(this.state.movie)
+    const collections = JSON.parse(localStorage.getItem('collections'));
+    console.log(collections)
+    if (!collections.find(movie => movie.id === this.state.movie.id)) {
+      collections.push(this.state.movie)
       }
-    localStorage.setItem('collection', JSON.stringify(collection))
-    console.log(collection)
+    localStorage.setItem('collection', JSON.stringify(collections))
+    console.log(collections)
   }
 
 }
 
 export default Movie;
 
-// TODO: Disable Add button if movie is already in the collection
+// TODO: Disable Add button if movie is already in the collection <-- There are multiple collections, just prevent duplicate movies is enough.

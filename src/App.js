@@ -5,14 +5,14 @@ import Header from './Header';
 import Discover from './Discover';
 import Search from './Search';
 import Movie from './Movie';
-import Collections from './Collections'
+import CollectionsList from './CollectionsList'
 
 sessionStorage.setItem('discoverResults', JSON.stringify([]));
 sessionStorage.setItem('discoverPage', 1);
 sessionStorage.setItem('searchQuery', '');
 sessionStorage.setItem('searchResults', JSON.stringify([]));
 sessionStorage.setItem('searchPage', 1);
-localStorage.setItem('collection', JSON.stringify([]))
+localStorage.setItem('collections', JSON.stringify([{collection_name : 'Prueba 1'}, {collection_name : 'Prueba 2'}]))
 
 // TODO: Clean and refactor API URLs in fetch calls
 
@@ -30,7 +30,7 @@ class App extends Component {
           <Switch>
           <Route exact path="/" component={Discover}/>
           <Route exact path="/search" component={Search}/>
-          <Route exact path="/collections" component={Collections}/>
+          <Route exact path="/collections" component={CollectionsList}/>
           <Route path='/movie/:id' component={Movie} />
           </Switch>
         </div>
