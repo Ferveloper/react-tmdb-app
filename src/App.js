@@ -12,7 +12,7 @@ sessionStorage.setItem('discoverPage', 1);
 sessionStorage.setItem('searchQuery', '');
 sessionStorage.setItem('searchResults', JSON.stringify([]));
 sessionStorage.setItem('searchPage', 1);
-localStorage.setItem('collections', JSON.stringify([{collection_name : 'Prueba 1'}, {collection_name : 'Prueba 2'}]))
+localStorage.setItem('collections', JSON.stringify([{collection_name : 'Prueba 1', movies : []}, {collection_name : 'Prueba 2', movies : []}]))
 
 // TODO: Clean and refactor API URLs in fetch calls
 

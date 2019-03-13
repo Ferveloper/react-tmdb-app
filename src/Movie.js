@@ -38,7 +38,7 @@ class Movie extends React.Component {
           
           <input id='existing' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} /><label htmlFor='existing'> Añadir a colección existente: </label>
             { JSON.parse(localStorage.getItem('collections')) 
-              ? <select onChange={this.handleSelectChange}>{JSON.parse(localStorage.getItem('collections')).map(collection => <option value={collection.collection_name}>{collection.collection_name}</option>)}</select>
+              ? <select onChange={this.handleSelectChange}>{JSON.parse(localStorage.getItem('collections')).map((collection, i) => <option key={i} value={collection.collection_name}>{collection.collection_name}</option>)}</select>
               : null
             }
           <br></br>
@@ -76,13 +76,23 @@ class Movie extends React.Component {
   addMovie = (e) => {
     e.preventDefault();
     console.log('addMovie triggered!')
-    console.log(this.state.movie)
-    const collections = JSON.parse(localStorage.getItem('collections'));
-    console.log(collections)
-    if (!collections.find(movie => movie.id === this.state.movie.id)) {
-      collections.push(this.state.movie)
+    const collections = JSON.parse(localStorage.getItem('collections'))
+    if (this.state.selectedOption === 'new' && collections.find(collection => collection.collection_name === this.state.selectedCollection)) {
+      console.log('Duplicated collection!')
+      return
+    }
+    if (this.state.selectedOption === 'existing') {
+      const collection = collections.find(collection => collection.collection_name === this.state.selectedCollection)
+      if (collection.movies.find(movie => movie.id === this.state.movie.id)) {
+        console.log('Duplicated movie!')
+        return
       }
-    localStorage.setItem('collection', JSON.stringify(collections))
+    }
+    const collection = this.state.selectedOption === 'existing' 
+    ? collections.find(collection => collection.collection_name === this.state.selectedCollection).movies.push(this.state.movie)
+    : collections.push({ collection_name : this.state.selectedCollection, movies : [{...this.state.movie}] })
+    console.log(collection)
+    localStorage.setItem('collections', JSON.stringify(collections))
     console.log(collections)
   }
 
