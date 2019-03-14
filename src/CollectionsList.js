@@ -1,21 +1,17 @@
 import React from 'react';
-import Showcase from './Showcase';
-import Pagination from './Pagination'
+import { Link } from 'react-router-dom';
 
 class Collections extends React.Component {
 
   state = {
-    results : JSON.parse(localStorage.getItem('collection')),
-    page : 1
+    collections : JSON.parse(localStorage.getItem('collections'))
   }
 
   render() {
-    const results = this.state.results;
     return (
-      <>
-      <Pagination page={this.state.page} onChangePage={this.handleChangePage} />
-      <Showcase results={results} />
-      </>
+      <ul>
+        {this.state.collections.map(collection => <li key={collection.id} className='collection'><Link to={`/collection/${collection.id}`} >{collection.name}</Link></li>)}
+      </ul>
     )
   }
 }

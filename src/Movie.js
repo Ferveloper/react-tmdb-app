@@ -8,7 +8,7 @@ class Movie extends React.Component {
             movie : {},
             toggle : false,
             newCollection : '',
-            existingCollection : JSON.parse(localStorage.getItem('collections'))[0].collection_name ? JSON.parse(localStorage.getItem('collections'))[0].collection_name : '',
+            existingCollection : JSON.parse(localStorage.getItem('collections'))[0].name ? JSON.parse(localStorage.getItem('collections'))[0].name : '',
             selectedOption : 'new',
             selectedCollection : ''
           }
@@ -36,15 +36,19 @@ class Movie extends React.Component {
           <input id='new' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
           <input type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
           
-          <input id='existing' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} /><label htmlFor='existing'> Añadir a colección existente: </label>
-            { JSON.parse(localStorage.getItem('collections')) 
-              ? <select onChange={this.handleSelectChange}>{JSON.parse(localStorage.getItem('collections')).map((collection, i) => <option key={i} value={collection.collection_name}>{collection.collection_name}</option>)}</select>
+          {/* <input id='existing' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} /><label htmlFor='existing'> Añadir a colección existente: </label> */}
+          { JSON.parse(localStorage.getItem('collections')) 
+              ? <><input id='existing' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} />
+              <label htmlFor='existing'> Añadir a colección existente: </label>
+              <select onChange={this.handleSelectChange}>
+                {JSON.parse(localStorage.getItem('collections')).map((collection, i) => <option key={i} value={collection.name}>{collection.name}</option>)}
+              </select></>
               : null
             }
           <br></br>
           <button type='submit'>Añadir</button>
+          <button onClick={this.handleToggle}>Cancelar</button>
         </form>
-        <button onClick={this.handleToggle}>Cancelar</button>
         </div>}
 
         <div className='overview'>
@@ -77,20 +81,20 @@ class Movie extends React.Component {
     e.preventDefault();
     console.log('addMovie triggered!')
     const collections = JSON.parse(localStorage.getItem('collections'))
-    if (this.state.selectedOption === 'new' && collections.find(collection => collection.collection_name === this.state.selectedCollection)) {
+    if (this.state.selectedOption === 'new' && collections.find(collection => collection.name === this.state.selectedCollection)) {
       console.log('Duplicated collection!')
       return
     }
     if (this.state.selectedOption === 'existing') {
-      const collection = collections.find(collection => collection.collection_name === this.state.selectedCollection)
+      const collection = collections.find(collection => collection.name === this.state.selectedCollection)
       if (collection.movies.find(movie => movie.id === this.state.movie.id)) {
         console.log('Duplicated movie!')
         return
       }
     }
     const collection = this.state.selectedOption === 'existing' 
-    ? collections.find(collection => collection.collection_name === this.state.selectedCollection).movies.push(this.state.movie)
-    : collections.push({ collection_name : this.state.selectedCollection, movies : [{...this.state.movie}] })
+    ? collections.find(collection => collection.name === this.state.selectedCollection).movies.push(this.state.movie)
+    : collections.push({ id : collections.length, name : this.state.selectedCollection, movies : [{...this.state.movie}] })
     console.log(collection)
     localStorage.setItem('collections', JSON.stringify(collections))
     console.log(collections)

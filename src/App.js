@@ -5,14 +5,15 @@ import Header from './Header';
 import Discover from './Discover';
 import Search from './Search';
 import Movie from './Movie';
-import CollectionsList from './CollectionsList'
+import CollectionsList from './CollectionsList';
+import Collection from './Collection';
 
 sessionStorage.setItem('discoverResults', JSON.stringify([]));
 sessionStorage.setItem('discoverPage', 1);
 sessionStorage.setItem('searchQuery', '');
 sessionStorage.setItem('searchResults', JSON.stringify([]));
 sessionStorage.setItem('searchPage', 1);
-localStorage.setItem('collections', JSON.stringify([{collection_name : 'Prueba 1', movies : []}, {collection_name : 'Prueba 2', movies : []}]))
+localStorage.setItem('collections', JSON.stringify([{id : 0, name : 'Prueba 1', movies : []}, {id : 1, name : 'Prueba 2', movies : []}]))
 
 // TODO: Clean and refactor API URLs in fetch calls
 
@@ -28,10 +29,11 @@ class App extends Component {
         <div className="App">
           <Header/>
           <Switch>
-          <Route exact path="/" component={Discover}/>
-          <Route exact path="/search" component={Search}/>
-          <Route exact path="/collections" component={CollectionsList}/>
+          <Route exact path='/' component={Discover}/>
+          <Route exact path='/search' component={Search}/>
+          <Route exact path='/collections' component={CollectionsList}/>
           <Route path='/movie/:id' component={Movie} />
+          <Route path='/collection/:id' component={Collection} />
           </Switch>
         </div>
       </BrowserRouter>
