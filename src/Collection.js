@@ -1,4 +1,5 @@
 import React from 'react';
+import './Collection.css';
 import defaultImg from './default.jpg';
 
 class Collection extends React.Component {
@@ -15,16 +16,20 @@ class Collection extends React.Component {
     const collection = this.state.collection;
     console.log(collection)
     return (
-      <>
-        {collection.movies.map((movie, i) => <li key={i} className='movie'>
-          <img className='img-showcase' src={movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : defaultImg} alt={movie.title}/>
-          <h2 class="title">{movie.title}</h2>
-          <div className="overview">{movie.overview}</div>
-          <div className="rating">{movie.rating ? movie.rating : 'Sin nota'}</div>
-          <button className="rate-btn" onClick={this.addRating} >{movie.rating ? 'Puntuar' : 'Cambiar nota'}</button>
-          <button className="delete-btn" onClick={this.deleteMovie} >Borrar de la colección</button>
+      <div className='collection'>
+        {collection.movies.map((movie, i) => <li key={i} className='movie-collection'>
+          <div className='img-container'><img className='img-collection' src={movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : defaultImg} alt={movie.title}/></div>
+          <div className='main-info'>
+            <h2 className="title-collection">{movie.title}</h2>
+            <div className="overview-collection">{movie.overview}</div>
+          </div>
+          <div className='actions'>
+            <div className="rating">NOTA: {movie.rating ? movie.rating : 'Sin nota'}</div>
+            <button type='submit' className="rate-btn" onClick={this.addRating} >{movie.rating ? 'Puntuar' : 'Cambiar nota'}</button>
+            <button type='submit' className="delete-btn" onClick={this.deleteMovie} >Borrar de la colección</button>
+          </div>
         </li>)}
-      </>
+      </div>
     )
   }
 }
