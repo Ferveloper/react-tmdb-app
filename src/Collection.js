@@ -1,6 +1,7 @@
 import React from 'react';
 import './Collection.css';
 import defaultImg from './default.jpg';
+import MovieSettings from './MovieSettings'
 
 class Collection extends React.Component {
 
@@ -23,14 +24,25 @@ class Collection extends React.Component {
             <h2 className="title-collection">{movie.title}</h2>
             <div className="overview-collection">{movie.overview}</div>
           </div>
-          <div className='actions'>
-            <div className="rating">NOTA: {movie.rating ? movie.rating : 'Sin nota'}</div>
-            <button type='submit' className="rate-btn" onClick={this.addRating} >{movie.rating ? 'Puntuar' : 'Cambiar nota'}</button>
-            <button type='submit' className="delete-btn" onClick={this.deleteMovie} >Borrar de la colección</button>
-          </div>
+          <MovieSettings 
+          collectionId={this.state.collection.id} 
+          movieId={movie.id} 
+          onAddRating={this.handleAddRating}
+          onDeletemovie={this.handleDeleteMovie}
+          rating={movie.rating} />
         </li>)}
       </div>
     )
+  }
+
+  handleAddRating = (e) => {
+    console.log(e.target.classList);
+    e.target.classList.toggle('hidden');
+
+  }
+
+  handleDeletemovie = () => {
+
   }
 }
 
