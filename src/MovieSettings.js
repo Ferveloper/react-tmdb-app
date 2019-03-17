@@ -12,11 +12,12 @@ class MovieSettings extends React.Component {
     return (
       <div className='actions'>
       <div className="rating">NOTA: {rating}</div>
-      <button type='submit' className="rate-btn" onClick={this.addRating} >{buttonText}</button> 
-      <form className='' onSubmit={this.addRating} >
-        <input className='rating' type='number' max='10' min='0' value={this.state.value} onChange={this.handleChange} />
-        <button className='rate-btn' type='submit'>{buttonText}</button>
-      </form>
+      {this.state.toggle
+      ? <form className='' onSubmit={this.addRating} >
+          <input className='rating' type='number' max='10' min='0' value={this.state.value} onChange={this.handleChange} />
+          <button className='rate-btn' type='submit'>{buttonText}</button>
+        </form> 
+      : <button type='submit' className="rate-btn" onClick={this.handleToggle} >{buttonText}</button>}
       <button type='submit' className="delete-btn" onClick={this.deleteMovie}>Borrar de la colección</button>
     </div>
     )
@@ -26,8 +27,13 @@ class MovieSettings extends React.Component {
     this.setState({ value : e.target.value })
   }
 
+  handleToggle = () => {
+    this.setState({ toggle : !this.state.toggle })
+  }
+
   addRating = (e) => {
     e.preventDefault();
+    this.handleToggle();
     const ratings = JSON.parse(localStorage.getItem('ratings'));
     ratings.find(rating => rating.id === this.props.movieId)
     ? ratings.find(rating => rating.id === this.props.movieId).value = parseInt(this.state.value)
