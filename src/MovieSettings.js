@@ -1,4 +1,5 @@
 import React from 'react';
+import './MovieSettings.css'
 
 class MovieSettings extends React.Component {
   state = {
@@ -13,7 +14,7 @@ class MovieSettings extends React.Component {
       <div className='actions'>
       <div className="rating">NOTA: {rating}</div>
       {this.state.toggle
-      ? <form className='' onSubmit={this.addRating} >
+      ? <form onSubmit={this.addRating} >
           <input className='rating' type='number' max='10' min='0' value={this.state.value} onChange={this.handleChange} />
           <button className='rate-btn' type='submit'>{buttonText}</button>
         </form> 
@@ -48,9 +49,12 @@ class MovieSettings extends React.Component {
 		console.log('TCL: MovieSettings -> deleteMovie -> collections', collections)
     const collection = collections.find(collection => collection.id === this.props.collectionId);
     const movie = collection.movies.find(movie => movie.id === this.props.movieId);
-    collections.splice(collections.indexOf(collection), 1);
-    collection.movies.splice(collection.movies.indexOf(movie), 1);
-    collections.push(collection);
+    const collectionIndex = collections.indexOf(collection);
+    const movieIndex = collection.movies.indexOf(movie);
+    // collections.splice(collections.indexOf(collection), 1);
+    // collection.movies.splice(collection.movies.indexOf(movie), 1);
+    // collections.push(collection);
+    collections[collectionIndex].movies.splice(movieIndex, 1);
 		console.log('TCL: MovieSettings -> deleteMovie -> collections', collections)
     localStorage.setItem('collections', JSON.stringify(collections))
     this.props.onDeleteMovie(collection)

@@ -7,20 +7,9 @@ import Search from './Search';
 import Movie from './Movie';
 import CollectionsList from './CollectionsList';
 import Collection from './Collection';
-import {sample} from './sample'
+import NotFound from './NotFound';
+import './setStorages';
 
-sessionStorage.setItem('discoverResults', JSON.stringify([]));
-sessionStorage.setItem('discoverPage', 1);
-sessionStorage.setItem('searchQuery', '');
-sessionStorage.setItem('searchResults', JSON.stringify([]));
-sessionStorage.setItem('searchPage', 1);
-localStorage.setItem('collections', JSON.stringify([{id : 0, name : 'Prueba 1', movies : sample}, {id : 1, name : 'Prueba 2', movies : []}]));
-localStorage.setItem('ratings', JSON.stringify([{id : 452832, value : 5}]));
-
-// TODO: Clean and refactor API URLs in fetch calls
-
-// const BASE_URL = 'https://api.themoviedb.org/3';
-// const API_KEY = '687ccf3a676569dd642e0706e30a6dae';
 class App extends Component {
 
   // state = { discoverPage : 1, searchPage : 1 }
@@ -36,6 +25,7 @@ class App extends Component {
           <Route exact path='/collections' component={CollectionsList}/>
           <Route path='/movie/:id' component={Movie} />
           <Route path='/collection/:id' component={Collection} />
+          <Route component={NotFound}/>
           </Switch>
         </div>
       </BrowserRouter>
@@ -44,8 +34,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-
-
-

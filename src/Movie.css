@@ -1,3 +1,27 @@
+.img-container {
+  margin-top: 50px;
+}
+
+.radio {
+  transform: scale(1.75); 
+}
+
+.text-input, .button, label {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.3rem;
+}
+
+.text-input {
+  width: 400px;
+  margin-left: 30px;
+}
+
+.button {
+  background-color: lightskyblue
+}
+
 .movie-details {
   display: grid;
   justify-items: center;

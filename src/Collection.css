@@ -35,32 +35,3 @@
 .main-info {
   align-self: flex-start;
 }
-
-.actions {
-  display: flex;
-  grid-column: 2 / 3;
-}
-
-.rating {
-  font-weight: bolder;
-}
-
-.rating,
-.rate-btn,
-.delete-btn {
-  margin: 10px;
-  padding: 10px;
-  font-size: 1.3rem;
-}
-
-.rate-btn,
-.delete-btn {
-  background-color: lightskyblue;
-  border-radius: 5px;
-}
-
-.hidden {
-  display: none;
-}
-
-

@@ -8,7 +8,7 @@ class Movie extends React.Component {
             movie : {},
             toggle : false,
             newCollection : '',
-            existingCollection : JSON.parse(localStorage.getItem('collections'))[0].name ? JSON.parse(localStorage.getItem('collections'))[0].name : '',
+            existingCollection : JSON.parse(localStorage.getItem('collections'))[0] ? JSON.parse(localStorage.getItem('collections'))[0].name : '',
             selectedOption : 'new',
             selectedCollection : ''
           }
@@ -16,7 +16,7 @@ class Movie extends React.Component {
   async componentDidMount() {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES`);
     const movie = await response.json();
-    this.setState({ movie : movie})
+    this.setState({ movie : movie })
   }
 
   render() {
@@ -30,24 +30,23 @@ class Movie extends React.Component {
 
         { !this.state.toggle 
         ? <button type='submit' className='add-favorites-btn' onClick={this.handleToggle}>Añadir a mis favoritos</button>
-
         : <div>
         <form className='form-favorites' onSubmit={this.addMovie}>
-          <input id='new' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
-          <input type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
-          
-          {/* <input id='existing' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} /><label htmlFor='existing'> Añadir a colección existente: </label> */}
-          { JSON.parse(localStorage.getItem('collections')) 
-              ? <><input id='existing' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} />
+          <input id='new' className='radio' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
+          <input className='text-input' type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
+
+          { this.state.existingCollection !== ''
+              ? <><input id='existing' className='radio' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} />
               <label htmlFor='existing'> Añadir a colección existente: </label>
-              <select onChange={this.handleSelectChange}>
+              <select className='text-input' onChange={this.handleSelectChange}>
                 {JSON.parse(localStorage.getItem('collections')).map((collection, i) => <option key={i} value={collection.name}>{collection.name}</option>)}
               </select></>
               : null
             }
+
           <br></br>
-          <button type='submit'>Añadir</button>
-          <button onClick={this.handleToggle}>Cancelar</button>
+          <button className='button' type='submit'>Añadir</button>
+          <button className='button' onClick={this.handleToggle}>Cancelar</button>
         </form>
         </div>}
 
@@ -76,32 +75,31 @@ class Movie extends React.Component {
   handleOptionChange = (e) => {
     this.setState({ selectedOption: e.target.id, selectedCollection : e.target.value })
   }
-// TODO: Finish addMovie method to include movies to collections
+
   addMovie = (e) => {
     e.preventDefault();
     console.log('addMovie triggered!')
     const collections = JSON.parse(localStorage.getItem('collections'))
+    if (this.state.selectedCollection === '') {
+      alert ('Error: indique un nombre para la colección')
+      return
+    }
     if (this.state.selectedOption === 'new' && collections.find(collection => collection.name === this.state.selectedCollection)) {
-      console.log('Duplicated collection!')
+      alert('Error: Coleccción duplicada. No se ha creado ninguna colección')
       return
     }
     if (this.state.selectedOption === 'existing') {
       const collection = collections.find(collection => collection.name === this.state.selectedCollection)
       if (collection.movies.find(movie => movie.id === this.state.movie.id)) {
-        console.log('Duplicated movie!')
+        alert('Error: Película duplicada. No se ha añadido ninguna película')
         return
       }
     }
-    const collection = this.state.selectedOption === 'existing' 
+    this.state.selectedOption === 'existing' 
     ? collections.find(collection => collection.name === this.state.selectedCollection).movies.push(this.state.movie)
     : collections.push({ id : collections.length, name : this.state.selectedCollection, movies : [{...this.state.movie}] })
-    console.log(collection)
     localStorage.setItem('collections', JSON.stringify(collections))
-    console.log(collections)
   }
-
 }
 
 export default Movie;
-
-// TODO: Disable Add button if movie is already in the collection <-- There are multiple collections, just prevent duplicate movies is enough.

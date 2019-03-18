@@ -1,0 +1,14 @@
+.collection {
+  padding: 30px;
+  font-size: 2rem;
+  margin: 50px;
+}
+
+.collection-item {
+  padding: 20px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;  
+}

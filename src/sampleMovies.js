@@ -1,4 +1,4 @@
-export const sample = [
+export const sampleMovies = [
   {
     "vote_count": 165,
     "id": 452832,
