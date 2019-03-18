@@ -11,8 +11,6 @@ import NotFound from './NotFound';
 import './setStorages';
 
 class App extends Component {
-
-  // state = { discoverPage : 1, searchPage : 1 }
   
   render() {
     return (

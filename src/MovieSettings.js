@@ -1,5 +1,6 @@
 import React from 'react';
-import './MovieSettings.css'
+import { Link } from 'react-router-dom';
+import './MovieSettings.css';
 
 class MovieSettings extends React.Component {
   state = {
@@ -16,10 +17,11 @@ class MovieSettings extends React.Component {
       {this.state.toggle
       ? <form onSubmit={this.addRating} >
           <input className='rating' type='number' max='10' min='0' value={this.state.value} onChange={this.handleChange} />
-          <button className='rate-btn' type='submit'>{buttonText}</button>
+          <button className='btn' type='submit'>{buttonText}</button>
         </form> 
-      : <button type='submit' className="rate-btn" onClick={this.handleToggle} >{buttonText}</button>}
-      <button type='submit' className="delete-btn" onClick={this.deleteMovie}>Borrar de la colección</button>
+      : <button type='submit' className="btn" onClick={this.handleToggle} >{buttonText}</button>}
+      <button type='submit' className="btn"><Link className='settings-link' to={`/movie/${this.props.movieId}`}>Ver detalles</Link></button>
+      <button type='submit' className="btn" onClick={this.deleteMovie}>Borrar de la colección</button>
     </div>
     )
   }

@@ -8,15 +8,18 @@
 }
 
 .rating,
-.rate-btn,
-.delete-btn {
+.btn {
   margin: 10px;
   padding: 10px;
   font-size: 1.3rem;
 }
 
-.rate-btn,
-.delete-btn {
+.btn {
   background-color: lightskyblue;
   border-radius: 5px;
+}
+
+.settings-link {
+  text-decoration: none;
+  color: black;
 }
