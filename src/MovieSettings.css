@@ -1,25 +1,14 @@
-.actions {
+.movie-settings__container {
   display: flex;
   grid-column: 2 / 3;
 }
 
-.rating {
+.movie-settings__rating {
   font-weight: bolder;
 }
 
-.rating,
-.btn {
+.movie-settings__rating {
   margin: 10px;
   padding: 10px;
-  font-size: 1.3rem;
-}
-
-.btn {
-  background-color: lightskyblue;
-  border-radius: 5px;
-}
-
-.settings-link {
-  text-decoration: none;
-  color: black;
+  font-size: 1.4rem;
 }

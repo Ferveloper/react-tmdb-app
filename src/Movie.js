@@ -22,21 +22,21 @@ class Movie extends React.Component {
   render() {
     const movie = this.state.movie;
     return (
-      <div className='movie-details'>
-        <h1 className='movie-title'>{movie.title}</h1>
-        <div className='img-container'>
-          <img className='img-details' src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImg} alt={movie.title}/>
+      <div className='movie__details'>
+        <h1 className='movie__title'>{movie.title}</h1>
+        <div className='movie__img-container'>
+          <img className='movie__img' src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImg} alt={movie.title}/>
         </div>
 
         { !this.state.toggle 
-        ? <button type='submit' className='add-favorites-btn' onClick={this.handleToggle}>Añadir a mis favoritos</button>
+        ? <button type='submit' className='button' onClick={this.handleToggle}>Añadir a mis favoritos</button>
         : <div>
-        <form className='form-favorites' onSubmit={this.addMovie}>
-          <input id='new' className='radio' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
+        <form onSubmit={this.addMovie}>
+          <input id='new' className='movie__radio' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
           <input className='text-input' type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
 
           { this.state.existingCollection !== ''
-              ? <><input id='existing' className='radio' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} />
+              ? <><input id='existing' className='movie__radio' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} />
               <label htmlFor='existing'> Añadir a colección existente: </label>
               <select className='text-input' onChange={this.handleSelectChange}>
                 {JSON.parse(localStorage.getItem('collections')).map((collection, i) => <option key={i} value={collection.name}>{collection.name}</option>)}
@@ -50,8 +50,8 @@ class Movie extends React.Component {
         </form>
         </div>}
 
-        <div className='overview'>
-        <h2 className='overview-title'>Sinopsis:</h2>
+        <div className='movie__overview'>
+        <h2 className='movie__overview-title'>Sinopsis:</h2>
           <article>{movie.overview}</article>
         </div>
       </div>
@@ -63,12 +63,10 @@ class Movie extends React.Component {
   }
 
   handleInputChange = (e) => {
-    console.log(e.target.value)
     this.setState({ newCollection : e.target.value, selectedCollection : this.state.selectedOption === 'new' ? e.target.value : this.state.selectedCollection })
   }
 
   handleSelectChange = (e) => {
-    console.log(e.target.value)
     this.setState({ existingCollection : e.target.value, selectedCollection : this.state.selectedOption === 'existing' ? e.target.value : this.state.selectedCollection })
   }
 
@@ -99,6 +97,7 @@ class Movie extends React.Component {
     ? collections.find(collection => collection.name === this.state.selectedCollection).movies.push(this.state.movie)
     : collections.push({ id : collections.length, name : this.state.selectedCollection, movies : [{...this.state.movie}] })
     localStorage.setItem('collections', JSON.stringify(collections))
+    this.handleToggle();
   }
 }
 

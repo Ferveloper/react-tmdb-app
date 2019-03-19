@@ -1,15 +1,15 @@
-header {
+.header__container {
   background-color: lightblue;
 }
 
-.menu {
+.header__menu {
   list-style: none;
   display: flex;
   font-size: 1.5em;
   text-transform: uppercase;
 }
 
-.menu-link {
+.header__menu-link {
   display: block;
   text-decoration: none;
   font-size: bold;
@@ -17,6 +17,7 @@ header {
   padding: 20px 40px;
 }
 
-.link:hover, .active-link {
+.header__menu-link:hover,
+.header__active-link {
   color: red;
 }

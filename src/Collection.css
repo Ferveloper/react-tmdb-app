@@ -1,4 +1,4 @@
-.movie-collection {
+.collection__movie {
   height: 500px;
   margin: 30px;
   display: grid;
@@ -7,31 +7,31 @@
   grid-template: 5fr 1fr/ 1fr 3fr;
 }
 
-.img-container {
+.collection__img-container {
   height: 100%;
   width: 350px;
   grid-row: 1 / 3;
   overflow: hidden;
 }
 
-.img-collection {
+.collection__img {
   width: 100%;
   height: auto;
   object-fit: contais;
   object-position: center;
 }
 
-.title-collection {
+.collection__title {
   font-size: 2.5em;
   text-align: left;
   margin-left: 75px;
 }
 
-.overview-collection {
+.collection__overview {
   font-size: 1.4rem;
   padding: 20px 75px;
   text-align: justify
 }
-.main-info {
+.collection__main-info {
   align-self: flex-start;
 }

@@ -1,57 +1,33 @@
-.img-container {
-  margin-top: 50px;
+.movie__img-container {
+  margin-bottom: 25px;
 }
 
-.radio {
+.movie__radio {
   transform: scale(1.75); 
 }
 
-.text-input, .button, label {
-  margin: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1.3rem;
-}
-
-.text-input {
-  width: 400px;
-  margin-left: 30px;
-}
-
-.button {
-  background-color: lightskyblue
-}
-
-.movie-details {
+.movie__details {
   display: grid;
   justify-items: center;
 }
 
-.movie-title {
+.movie__title {
   font-size: 2.5rem;
   text-align: center;
   padding: 20px;
 }
 
-.img-details {
+.movie__img {
   width: 400px
 }
 
-.overview-title {
+.movie__overview-title {
   font-size: 2rem;
   margin-bottom: 10px;
 }
 
-.overview {
+.movie__overview {
   font-size: 1.5em;
   padding: 20px 100px 50px 100px;
   text-align: justify;
-}
-
-.add-favorites-btn {
-  background-color: lightskyblue;
-  border-radius: 5px;
-  padding: 10px;
-  margin-top: 20px;
-  font-size: 1.4rem;
 }

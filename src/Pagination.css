@@ -1,4 +1,4 @@
-.pagination {
+.pagination__container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,13 +6,8 @@
   padding: 10px;
 }
 
-.current-page, .change-page-btn {
+.pagination__current-page {
   padding: 10px;
   margin: 5px;
   font-size: 1.4rem;
-}
-
-.change-page-btn {
-  background-color: lightskyblue;
-  border-radius: 5px;
 }

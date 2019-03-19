@@ -3,16 +3,14 @@ import './Pagination.css'
 
 function Pagination(props) {
   return (
-    <div className='pagination'>
+    <div className='pagination__container'>
       {props.page === 1
       ? null
-      : <button type='submit' className='change-page-btn' value='-1' onClick={props.onChangePage}>Anterior</button>}
-      <div className='current-page'>{props.page}</div>
-      <button type='submit' className='change-page-btn' value='1' onClick={props.onChangePage}>Siguiente</button>
+      : <button type='submit' className='button' value='-1' onClick={props.onChangePage}>Anterior</button>}
+      <div className='pagination__current-page'>{props.page}</div>
+      <button type='submit' className='button' value='1' onClick={props.onChangePage}>Siguiente</button>
     </div>
   )
 }
 
 export default Pagination;
-
-// TODO: Enhance style when Previous button is not rendered

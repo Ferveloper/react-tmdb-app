@@ -1,7 +1,6 @@
 import React from 'react';
 import Showcase from './Showcase';
 import Pagination from './Pagination';
-import './Search.css';
 
 class Search extends React.Component {
 
@@ -28,17 +27,8 @@ class Search extends React.Component {
     this.setState({ results : results, page : 1})
   }
 
-  // async didComponentUpdate() {
-  //   console.log('Search didComponentUpdate triggered!')
-  //   const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&query=${this.state.query}&page=${this.state.page}`);
-  //   const { results } = await response.json();
-  //   sessionStorage.setItem('results', JSON.stringify(results));
-  //   this.setState({ results : results})
-  // }
-
   render() {
     console.log('Search render triggered')
-    // console.log(JSON.parse(sessionStorage.getItem('searchResults')))
     const results = this.state.results;
     return (
       <>

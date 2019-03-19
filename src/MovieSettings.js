@@ -12,17 +12,17 @@ class MovieSettings extends React.Component {
     const rating = this.props.movieRating;
     const buttonText = rating === 'Sin nota' ? 'Puntuar' : 'Cambiar nota';
     return (
-      <div className='actions'>
-      <div className="rating">NOTA: {rating}</div>
-      {this.state.toggle
-      ? <form onSubmit={this.addRating} >
-          <input className='rating' type='number' max='10' min='0' value={this.state.value} onChange={this.handleChange} />
-          <button className='btn' type='submit'>{buttonText}</button>
-        </form> 
-      : <button type='submit' className="btn" onClick={this.handleToggle} >{buttonText}</button>}
-      <button type='submit' className="btn"><Link className='settings-link' to={`/movie/${this.props.movieId}`}>Ver detalles</Link></button>
-      <button type='submit' className="btn" onClick={this.deleteMovie}>Borrar de la colección</button>
-    </div>
+      <div className='movie-settings__container'>
+        <div className="movie-settings__rating">NOTA: {rating}</div>
+        {this.state.toggle
+        ? <form onSubmit={this.addRating} >
+            <input className='movie-settings__rating' type='number' max='10' min='0' value={this.state.value} onChange={this.handleChange} />
+            <button className='button' type='submit'>{buttonText}</button>
+          </form> 
+        : <button type='submit' className="button" onClick={this.handleToggle} >{buttonText}</button>}
+        <button type='submit' className="button"><Link className='link' to={`/movie/${this.props.movieId}`}>Ver detalles</Link></button>
+        <button type='submit' className="button" onClick={this.deleteMovie}>Borrar de la colección</button>
+      </div>
     )
   }
 

@@ -17,12 +17,12 @@ class Collection extends React.Component {
 		console.log(ratings);
     console.log(collection);
     return (
-      <div className='collection'>
-        {collection.movies.map((movie, i) => <li key={i} className='movie-collection'>
-          <div className='img-container'><img className='img-collection' src={movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : defaultImg} alt={movie.title}/></div>
-          <div className='main-info'>
-            <h2 className="title-collection">{movie.title}</h2>
-            <div className="overview-collection">{movie.overview}</div>
+      <div className='collection__container'>
+        {collection.movies.map((movie, i) => <li key={i} className='collection__movie'>
+          <div className='collection__img-container'><img className='collection__img' src={movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : defaultImg} alt={movie.title}/></div>
+          <div className='collection__main-info'>
+            <h2 className='collection__title'>{movie.title}</h2>
+            <div className='collection__overview'>{movie.overview}</div>
           </div>
           <MovieSettings 
           collectionId={collection.id}

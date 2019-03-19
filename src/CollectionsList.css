@@ -1,14 +1,9 @@
-.collection {
+.collection-list__container {
   padding: 30px;
   font-size: 2rem;
   margin: 50px;
 }
 
-.collection-item {
+.collection-list__item {
   padding: 20px;
-}
-
-.link {
-  text-decoration: none;
-  color: black;  
 }
