@@ -1,6 +1,7 @@
 import React from 'react';
 import './Movie.css';
-import defaultImg from './default.jpg'
+import defaultImg from './default.jpg';
+import api from './api';
 
 class Movie extends React.Component {
 
@@ -10,51 +11,60 @@ class Movie extends React.Component {
             newCollection : '',
             existingCollection : JSON.parse(localStorage.getItem('collections'))[0] ? JSON.parse(localStorage.getItem('collections'))[0].name : '',
             selectedOption : 'new',
-            selectedCollection : ''
+            selectedCollection : '',
+            loading : true
           }
 
   async componentDidMount() {
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES`);
-    const movie = await response.json();
-    this.setState({ movie : movie })
+    // const response = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES`);
+    // const movie = await response.json();
+    const movie = await api.movie(this.props.match.params.id);
+    this.setState({ movie : movie, loading : false });
   }
 
   render() {
     const movie = this.state.movie;
+    const loading = this.state.loading;
     return (
-      <div className='movie__details'>
-        <h1 className='movie__title'>{movie.title}</h1>
-        <div className='movie__img-container'>
-          <img className='movie__img' src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImg} alt={movie.title}/>
-        </div>
+      <>
+        { loading
+        ? <div className='no-results'>Cargando. Espere, por favor.</div>
+        : <div className='movie__details'>
+            <h1 className='movie__title'>{movie.title}</h1>
+            <div className='movie__img-container'>
+              <img className='movie__img' src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImg} alt={movie.title}/>
+            </div>
 
-        { !this.state.toggle 
-        ? <button type='submit' className='button' onClick={this.handleToggle}>Añadir a mis favoritos</button>
-        : <div>
-        <form onSubmit={this.addMovie}>
-          <input id='new' className='movie__radio' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
-          <input className='text-input' type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
+          { !this.state.toggle 
+          ? <button type='submit' className='button' onClick={this.handleToggle}>Añadir a mis favoritos</button>
+          : <>
+              <form onSubmit={this.addMovie}>
+                <input id='new' className='movie__radio' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
+                <input className='text-input' type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
 
-          { this.state.existingCollection !== ''
-              ? <><input id='existing' className='movie__radio' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} />
-              <label htmlFor='existing'> Añadir a colección existente: </label>
-              <select className='text-input' onChange={this.handleSelectChange}>
-                {JSON.parse(localStorage.getItem('collections')).map((collection, i) => <option key={i} value={collection.name}>{collection.name}</option>)}
-              </select></>
+            { this.state.existingCollection !== ''
+              ? <>
+                <input id='existing' className='movie__radio' type='radio' name='collection' value={this.state.existingCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'existing'} />
+                <label htmlFor='existing'> Añadir a colección existente: </label>
+                <select className='text-input' onChange={this.handleSelectChange}>
+                  {JSON.parse(localStorage.getItem('collections')).map((collection, i) => <option key={i} value={collection.name}>{collection.name}</option>)}
+                </select>
+                </>
               : null
             }
 
-          <br></br>
-          <button className='button' type='submit'>Añadir</button>
-          <button className='button' onClick={this.handleToggle}>Cancelar</button>
-        </form>
-        </div>}
+                <br></br>
+                <button className='button' type='submit'>Añadir</button>
+                <button className='button' onClick={this.handleToggle}>Cancelar</button>
+              </form>
+            </>}
 
-        <div className='movie__overview'>
-        <h2 className='movie__overview-title'>Sinopsis:</h2>
-          <article>{movie.overview}</article>
-        </div>
-      </div>
+            <div className='movie__overview'>
+              <h2 className='movie__overview-title'>Sinopsis:</h2>
+              <article>{movie.overview}</article>
+            </div>
+          </div> }
+      </>
     )
   }
 

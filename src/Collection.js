@@ -18,7 +18,9 @@ class Collection extends React.Component {
     console.log(collection);
     return (
       <div className='collection__container'>
-        {collection.movies.map((movie, i) => <li key={i} className='collection__movie'>
+        {collection.movies.length === 0
+        ? <div className='no-results'>Colección sin contenido. Añade películas, por favor</div>
+        : collection.movies.map((movie, i) => <li key={i} className='collection__movie'>
           <div className='collection__img-container'><img className='collection__img' src={movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : defaultImg} alt={movie.title}/></div>
           <div className='collection__main-info'>
             <h2 className='collection__title'>{movie.title}</h2>
