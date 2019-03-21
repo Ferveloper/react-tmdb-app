@@ -12,12 +12,14 @@ class Collection extends React.Component {
 
   render() {
     const collection = this.state.collection;
-		console.log('TCL: Collection -> render -> collection', collection)
     const ratings = this.state.ratings;
-		console.log(ratings);
-    console.log(collection);
+    if (!this.state.collection) return <div className='no-results'>La colección buscada no existe</div>
     return (
       <div className='collection__container'>
+        <div className='collection__header'>
+          <h1 className='collection__name'>{collection.name}</h1>
+          <button className='button' onClick={this.handleDeleteCollection}>Eliminar colección</button>
+        </div>
         {collection.movies.length === 0
         ? <div className='no-results'>Colección sin contenido. Añade películas, por favor</div>
         : collection.movies.map((movie, i) => <li key={i} className='collection__movie'>
@@ -45,6 +47,14 @@ class Collection extends React.Component {
 
   handleDeleteMovie = (collection) => {
     this.setState({collection : collection })
+  }
+
+  handleDeleteCollection = () => {
+    const collections = JSON.parse(localStorage.getItem('collections'));
+    const collectionIndex = collections.indexOf(this.state.collection);
+    collections.splice(collectionIndex, 1);
+    localStorage.setItem('collections', JSON.stringify(collections))
+    this.setState({ collection: null });
   }
 }
 

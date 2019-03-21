@@ -1,7 +1,7 @@
 .collection-list__container {
-  padding: 30px;
+  padding: 10px 30px;
   font-size: 2rem;
-  margin: 50px;
+  margin: 10px 50px;
 }
 
 .collection-list__item {

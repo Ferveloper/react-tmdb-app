@@ -9,12 +9,7 @@ const Showcase = (props) => {
     <ul className='showcase__container'>
       {results.length === 0 
 
-      ? <div className='no-results'>
-          { props.parent === 'search'
-            ? 'Sin resultados. Realiza una búsqueda, por favor'
-            : 'Cargando. Espere, por favor.'
-            }
-        </div>
+      ? <div className='no-results'>Sin resultados. Realiza una búsqueda, por favor</div>
 
       : results.map(movie => 
       <Link key={movie.id} className='link' to={`/movie/${movie.id}`}>

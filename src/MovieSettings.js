@@ -53,9 +53,6 @@ class MovieSettings extends React.Component {
     const movie = collection.movies.find(movie => movie.id === this.props.movieId);
     const collectionIndex = collections.indexOf(collection);
     const movieIndex = collection.movies.indexOf(movie);
-    // collections.splice(collections.indexOf(collection), 1);
-    // collection.movies.splice(collection.movies.indexOf(movie), 1);
-    // collections.push(collection);
     collections[collectionIndex].movies.splice(movieIndex, 1);
 		console.log('TCL: MovieSettings -> deleteMovie -> collections', collections)
     localStorage.setItem('collections', JSON.stringify(collections))

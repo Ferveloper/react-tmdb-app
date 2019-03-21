@@ -7,18 +7,18 @@ class Discover extends React.Component {
 
   state = {
     results : JSON.parse(sessionStorage.getItem('discoverResults')),
-    page : parseInt(sessionStorage.getItem('discoverPage'))
+    page : parseInt(sessionStorage.getItem('discoverPage')),
+    loading : true
   }
 
   async componentDidMount() {
-    // const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=687ccf3a676569dd642e0706e30a6dae&sort_by=popularity.desc&language=es-ES&page=${this.state.page}`);
-    // const { results } = await response.json();
     const results = await api.discover(this.state.page)
-    this.setState({ results : results})
+    this.setState({ results : results, loading: false})
   }
 
   render() {
     const results = this.state.results;
+    if (this.state.loading) return <div className='no-results'>Cargando. Espera, por favor.</div>
     return (
       <>
       <Pagination page={this.state.page} onChangePage={this.handleChangePage} />
@@ -29,8 +29,6 @@ class Discover extends React.Component {
 
   handleChangePage = async (e) => {
     const newPage = this.state.page + parseInt(e.target.value)
-    // const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&page=${newPage}`);
-    // const { results } = await response.json();
     const results = await api.discover(newPage);
     sessionStorage.setItem('discoverResults', JSON.stringify(results))
     sessionStorage.setItem('discoverPage', JSON.stringify(newPage))

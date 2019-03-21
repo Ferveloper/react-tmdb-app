@@ -8,7 +8,8 @@ class Search extends React.Component {
   state = {
     query : sessionStorage.getItem('searchQuery'),
     results : JSON.parse(sessionStorage.getItem('searchResults')),
-    page : parseInt(sessionStorage.getItem('searchPage'))
+    page : parseInt(sessionStorage.getItem('searchPage')),
+    loading : false
   }
 
   handleChange = (e) => {
@@ -17,18 +18,17 @@ class Search extends React.Component {
   }
 
   handleSubmit = async (e) => {
+    this.setState({ loading : true })
     e.preventDefault();
-    // if (this.state.query === '') return;
-    // const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&query=${this.state.query}&page=1`);
-    // const { results } = await response.json();
     const results = await api.search(this.state.query, 1)
     sessionStorage.setItem('searchResults', JSON.stringify(results));
     sessionStorage.setItem('searchPage', 1);
-    this.setState({ results : results, page : 1})
+    this.setState({ results : results, page : 1, loading : false })
   }
 
   render() {
     const results = this.state.results;
+    if (this.state.loading) return <div className='no-results'>Cargando. Espera, por favor.</div>
     return (
       <>
         <form className='form' onSubmit={this.handleSubmit}>
@@ -45,8 +45,6 @@ class Search extends React.Component {
 
   handleChangePage = async (e) => {
     const newPage = this.state.page + parseInt(e.target.value)
-    // const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES&query=${this.state.query}&page=${newPage}`);
-    // const { results } = await response.json();
     const results = await api.search(this.state.query, newPage);
     sessionStorage.setItem('searchResults', JSON.stringify(results))
     sessionStorage.setItem('searchPage', JSON.stringify(newPage))

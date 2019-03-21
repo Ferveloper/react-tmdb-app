@@ -16,8 +16,6 @@ class Movie extends React.Component {
           }
 
   async componentDidMount() {
-    // const response = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=687ccf3a676569dd642e0706e30a6dae&language=es-ES`);
-    // const movie = await response.json();
     const movie = await api.movie(this.props.match.params.id);
     this.setState({ movie : movie, loading : false });
   }
@@ -28,7 +26,7 @@ class Movie extends React.Component {
     return (
       <>
         { loading
-        ? <div className='no-results'>Cargando. Espere, por favor.</div>
+        ? <div className='no-results'>Cargando. Espera, por favor.</div>
         : <div className='movie__details'>
             <h1 className='movie__title'>{movie.title}</h1>
             <div className='movie__img-container'>
@@ -107,7 +105,11 @@ class Movie extends React.Component {
     ? collections.find(collection => collection.name === this.state.selectedCollection).movies.push(this.state.movie)
     : collections.push({ id : collections.length, name : this.state.selectedCollection, movies : [{...this.state.movie}] })
     localStorage.setItem('collections', JSON.stringify(collections))
-    this.handleToggle();
+    this.setState({ 
+      newCollection : '',
+      existingCollection : JSON.parse(localStorage.getItem('collections'))[0] ? JSON.parse(localStorage.getItem('collections'))[0].name : '',
+      toggle : false
+    })
   }
 }
 

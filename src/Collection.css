@@ -1,3 +1,13 @@
+.collection__header {
+  display: flex;
+  align-items: center
+}
+
+.collection__name {
+  padding: 30px 50px;
+  font-size: 3rem;
+}
+
 .collection__movie {
   height: 500px;
   margin: 30px;
