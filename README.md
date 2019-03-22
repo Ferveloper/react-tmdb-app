@@ -1,3 +1,23 @@
+# The Movie Database App
+
+A wonderful app for browsing your favourites movies, adding them to your personal collections and rating them.
+
+## Built with
+
+- TMDb API
+- create-react-app
+- react-router-dom
+
+## Functionalities
+
+- Discover popular movies
+- Search movies
+- View movie details
+- Create and delete collections
+- Add movies to collections
+- Remove movies from colections
+- Rate movies from collections
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
