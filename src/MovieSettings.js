@@ -41,22 +41,20 @@ class MovieSettings extends React.Component {
     ratings.find(rating => rating.id === this.props.movieId)
     ? ratings.find(rating => rating.id === this.props.movieId).value = parseInt(this.state.value)
     : ratings.push({id : this.props.movieId, value : parseInt(this.state.value)});
-    localStorage.setItem('ratings', JSON.stringify(ratings))
-    this.props.onAddRating(ratings)
+    localStorage.setItem('ratings', JSON.stringify(ratings));
+    this.props.onAddRating(ratings);
   }
 
   deleteMovie = (e) => {
     e.preventDefault();
     const collections = JSON.parse(localStorage.getItem('collections'));
-		console.log('TCL: MovieSettings -> deleteMovie -> collections', collections)
     const collection = collections.find(collection => collection.id === this.props.collectionId);
     const movie = collection.movies.find(movie => movie.id === this.props.movieId);
     const collectionIndex = collections.indexOf(collection);
     const movieIndex = collection.movies.indexOf(movie);
     collections[collectionIndex].movies.splice(movieIndex, 1);
-		console.log('TCL: MovieSettings -> deleteMovie -> collections', collections)
-    localStorage.setItem('collections', JSON.stringify(collections))
-    this.props.onDeleteMovie(collection)
+    localStorage.setItem('collections', JSON.stringify(collections));
+    this.props.onDeleteMovie(collection);
   }
 }
 

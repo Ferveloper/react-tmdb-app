@@ -13,7 +13,7 @@ class Collection extends React.Component {
   render() {
     const collection = this.state.collection;
     const ratings = this.state.ratings;
-    if (!this.state.collection) return <div className='no-results'>La colección buscada no existe</div>
+    if (!this.state.collection) return <div className='no-results'>La colección no existe</div>
     return (
       <div className='collection__container'>
         <div className='collection__header'>
@@ -53,7 +53,7 @@ class Collection extends React.Component {
     const collections = JSON.parse(localStorage.getItem('collections'));
     const collectionIndex = collections.indexOf(this.state.collection);
     collections.splice(collectionIndex, 1);
-    localStorage.setItem('collections', JSON.stringify(collections))
+    localStorage.setItem('collections', JSON.stringify(collections));
     this.setState({ collection: null });
   }
 }

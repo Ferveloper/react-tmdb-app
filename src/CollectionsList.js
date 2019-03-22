@@ -9,6 +9,20 @@ class Collections extends React.Component {
     name : ''
   }
 
+  render() {
+    return (
+      <>
+      <form className='form' onSubmit={this.handleSubmit}>
+          <input className='text-input' type="text" value={this.state.name} placeholder='Nombre...' onChange={this.handleChange} />
+          <button className='button' type='submit'>Crear colección</button>
+        </form>
+      <ul className='collection-list__container'>
+        {this.state.collections.map(collection => <li key={collection.id} className='collection-list__item'><Link className='link' to={`/collection/${collection.id}`} >{collection.name}</Link></li>)}
+      </ul>
+      </>
+    )
+  }
+
   handleChange = (e) => {
     this.setState({ name : e.target.value });
   }
@@ -25,20 +39,7 @@ class Collections extends React.Component {
     localStorage.setItem('collections', JSON.stringify(collections))
     this.setState({ collections : collections })
   }
-
-  render() {
-    return (
-      <>
-      <form className='form' onSubmit={this.handleSubmit}>
-          <input className='text-input' type="text" value={this.state.name} placeholder='Nombre...' onChange={this.handleChange} />
-          <button className='button' type='submit'>Crear colección</button>
-        </form>
-      <ul className='collection-list__container'>
-        {this.state.collections.map(collection => <li key={collection.id} className='collection-list__item'><Link className='link' to={`/collection/${collection.id}`} >{collection.name}</Link></li>)}
-      </ul>
-      </>
-    )
-  }
+  
 }
 
 export default Collections;

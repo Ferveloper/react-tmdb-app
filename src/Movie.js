@@ -36,7 +36,7 @@ class Movie extends React.Component {
           { !this.state.toggle 
           ? <button type='submit' className='button' onClick={this.handleToggle}>Añadir a mis favoritos</button>
           : <>
-              <form onSubmit={this.addMovie}>
+              <form onSubmit={this.handleAddMovie}>
                 <input id='new' className='movie__radio' type='radio' name='collection' value={this.state.newCollection} onChange={this.handleOptionChange} checked={this.state.selectedOption === 'new'} /><label htmlFor='new'> Añadir a nueva colección: </label>
                 <input className='text-input' type='text' name='collection-name' value={this.state.newCollection} onChange={this.handleInputChange} /><br></br>
 
@@ -82,9 +82,8 @@ class Movie extends React.Component {
     this.setState({ selectedOption: e.target.id, selectedCollection : e.target.value })
   }
 
-  addMovie = (e) => {
+  handleAddMovie = (e) => {
     e.preventDefault();
-    console.log('addMovie triggered!')
     const collections = JSON.parse(localStorage.getItem('collections'))
     if (this.state.selectedCollection === '') {
       alert ('Error: indique un nombre para la colección')

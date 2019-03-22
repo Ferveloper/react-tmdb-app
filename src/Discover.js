@@ -28,11 +28,11 @@ class Discover extends React.Component {
   }
 
   handleChangePage = async (e) => {
-    const newPage = this.state.page + parseInt(e.target.value)
+    const newPage = this.state.page + parseInt(e.target.value);
     const results = await api.discover(newPage);
-    sessionStorage.setItem('discoverResults', JSON.stringify(results))
-    sessionStorage.setItem('discoverPage', JSON.stringify(newPage))
-    this.setState({ results: results, page : newPage })
+    sessionStorage.setItem('discoverResults', JSON.stringify(results));
+    sessionStorage.setItem('discoverPage', JSON.stringify(newPage));
+    this.setState({ results: results, page : newPage });
   }
 }
 

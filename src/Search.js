@@ -12,20 +12,6 @@ class Search extends React.Component {
     loading : false
   }
 
-  handleChange = (e) => {
-    sessionStorage.setItem('searchQuery', e.target.value);
-    this.setState({query: e.target.value});
-  }
-
-  handleSubmit = async (e) => {
-    this.setState({ loading : true })
-    e.preventDefault();
-    const results = await api.search(this.state.query, 1)
-    sessionStorage.setItem('searchResults', JSON.stringify(results));
-    sessionStorage.setItem('searchPage', 1);
-    this.setState({ results : results, page : 1, loading : false })
-  }
-
   render() {
     const results = this.state.results;
     if (this.state.loading) return <div className='no-results'>Cargando. Espera, por favor.</div>
@@ -43,12 +29,26 @@ class Search extends React.Component {
     )
   }
 
+  handleChange = (e) => {
+    sessionStorage.setItem('searchQuery', e.target.value);
+    this.setState({query: e.target.value});
+  }
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    this.setState({ loading : true });
+    const results = await api.search(this.state.query, 1);
+    sessionStorage.setItem('searchResults', JSON.stringify(results));
+    sessionStorage.setItem('searchPage', 1);
+    this.setState({ results : results, page : 1, loading : false });
+  }
+
   handleChangePage = async (e) => {
-    const newPage = this.state.page + parseInt(e.target.value)
+    const newPage = this.state.page + parseInt(e.target.value);
     const results = await api.search(this.state.query, newPage);
-    sessionStorage.setItem('searchResults', JSON.stringify(results))
-    sessionStorage.setItem('searchPage', JSON.stringify(newPage))
-    this.setState({ results: results, page : newPage })
+    sessionStorage.setItem('searchResults', JSON.stringify(results));
+    sessionStorage.setItem('searchPage', JSON.stringify(newPage));
+    this.setState({ results: results, page : newPage });
   }
 }
 
