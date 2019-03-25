@@ -37,7 +37,7 @@ class Collections extends React.Component {
     }
     collections.push({ id : collections.length, name : this.state.name, movies : [] })
     localStorage.setItem('collections', JSON.stringify(collections))
-    this.setState({ collections : collections })
+    this.setState({ collections : collections, name : '' })
   }
   
 }

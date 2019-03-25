@@ -58,8 +58,10 @@ class Movie extends React.Component {
             </>}
 
             <div className='movie__overview'>
+              <p className='movie__detail'><strong>Nacionalidad:</strong> {movie.production_countries.map(genre => genre.name).join(', ')}</p>
+              <p className='movie__detail'><strong>Géneros:</strong> {movie.genres.map(genre => genre.name).join(', ')}</p>
               <h2 className='movie__overview-title'>Sinopsis:</h2>
-              <article>{movie.overview}</article>
+              <p>{movie.overview}</p>
             </div>
           </div> }
       </>

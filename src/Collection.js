@@ -50,9 +50,8 @@ class Collection extends React.Component {
   }
 
   handleDeleteCollection = () => {
-    const collections = JSON.parse(localStorage.getItem('collections'));
-    const collectionIndex = collections.indexOf(this.state.collection);
-    collections.splice(collectionIndex, 1);
+    let collections = JSON.parse(localStorage.getItem('collections'));
+    collections = collections.filter(collection => collection.id !== this.state.collection.id)
     localStorage.setItem('collections', JSON.stringify(collections));
     this.setState({ collection: null });
   }
